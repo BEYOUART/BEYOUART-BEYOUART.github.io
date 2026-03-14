@@ -176,98 +176,25 @@ const fallbackPrices = {
   "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "$7.00"
 };
 
-const fallbackNames = {
-  "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04": "Digital Print No. 1",
-  "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07": "Digital Print No. 2",
-  "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08": "Digital Print No. 3",
-  "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01": "Digital Print No. 4",
-  "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03": "Digital Print No. 5",
-  "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02": "Digital Print No. 6",
-  "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06": "Digital Print No. 7",
-  "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "Digital Print No. 8"
-};
+const products = Object.entries(fallbackPrices).map(([link, price], idx) => ({
+  name: `Product ${idx + 1}`,
+  image: "https://via.placeholder.com/400x400?text=beyouart",
+  price,
+  link
+}));
 
-const palette = ["#f7d9c4", "#d5e8f7", "#e4d7ff", "#d8f1dd", "#ffdede", "#fff0c2", "#d7f6f5", "#f0d8e8"];
-
-function imageForLabel(label, color) {
-  const svg = `
-    <svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>
-      <rect width='800' height='800' fill='${color}' />
-      <text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' fill='#111' font-size='44' font-family='Inter, Arial, sans-serif'>${label}</text>
-    </svg>
-  `;
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-}
-
-function parseStripeMeta(text) {
-  const titleMatch = text.match(/^Title:\s*(.+)$/mi);
-  const rawTitle = titleMatch ? titleMatch[1].trim() : "";
-  const priceMatch = rawTitle.match(/([$€£]\s?\d+(?:[\.,]\d{2})?)/);
-  const price = priceMatch ? priceMatch[1].replace(/\s+/g, "") : null;
-
-  let name = rawTitle;
-  name = name.replace(/\s*\|\s*Stripe\s*$/i, "");
-  name = name.replace(/\s*[-–—:]\s*[$€£]\s?\d+(?:[\.,]\d{2})?\s*$/i, "");
-  name = name.replace(/\s*[$€£]\s?\d+(?:[\.,]\d{2})?\s*$/, "").trim();
-
-  return {
-    name: name || null,
-    price: price || null
-  };
-}
-
-async function fetchStripeProductData(link) {
-  const proxyUrl = `https://r.jina.ai/http://${link.replace(/^https?:\/\//, "")}`;
-
-  try {
-    const response = await fetch(proxyUrl, { cache: "no-store" });
-    if (!response.ok) throw new Error(`Proxy response ${response.status}`);
-
-    const text = await response.text();
-    const parsed = parseStripeMeta(text);
-    return {
-      name: parsed.name || fallbackNames[link] || "Digital Print",
-      price: parsed.price || fallbackPrices[link] || "View on Stripe"
-    };
-  } catch (error) {
-    return {
-      name: fallbackNames[link] || "Digital Print",
-      price: fallbackPrices[link] || "View on Stripe"
-    };
-  }
-}
-
-function createCard({ name, price, link, image }) {
-  const card = document.createElement("div");
-  card.className = "card";
+const container = document.getElementById('productContainer');
+products.forEach(product => {
+  const card = document.createElement('div');
+  card.className = 'card';
   card.innerHTML = `
-    <img src="${image}" alt="${name}">
-    <h3>${name}</h3>
-    <div class="price">${price}</div>
-    <a href="${link}" target="_blank" rel="noopener noreferrer"><button>Buy</button></a>
+    <img src="${product.image}" alt="${product.name}">
+    <h3>${product.name}</h3>
+    <div class="price">${product.price}</div>
+    <a href="${product.link}" target="_blank" rel="noopener noreferrer"><button>Buy</button></a>
   `;
-  return card;
-}
-
-async function renderProducts() {
-  const container = document.getElementById("productContainer");
-  container.innerHTML = "";
-
-  const metaList = await Promise.all(stripePaymentLinks.map(fetchStripeProductData));
-
-  metaList.forEach((meta, idx) => {
-    const link = stripePaymentLinks[idx];
-    const card = createCard({
-      name: meta.name,
-      price: meta.price,
-      link,
-      image: imageForLabel(meta.name, palette[idx % palette.length])
-    });
-    container.appendChild(card);
-  });
-}
-
-renderProducts();
+  container.appendChild(card);
+});
 </script>
 
 </body>
