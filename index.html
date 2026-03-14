@@ -1,56 +1,274 @@
-diff --git a/index.html b/index.html
-index 5dd78798021e5f669f0edb89cdba3dfb9618365b..333abd0acdec6318bafc6622f165b56d4a42b3db 100644
---- a/index.html
-+++ b/index.html
-@@ -155,50 +155,51 @@ button:hover {
- }
- 
- footer {
-   text-align: center;
-   padding: 40px 20px;
-   font-size: 12px;
-   opacity: 0.6;
- }
- 
- @keyframes logoIntro {
-   to { opacity: 1; transform: scale(1); }
- }
- 
- @keyframes fadeTagline {
-   to { opacity: 0.7; }
- }
- </style>
- </head>
- 
- <body>
- 
- <nav>
-   <div class="nav-inner">
-     <a href="index.html">HOME</a>
-     <a href="about.html">ABOUT ME</a>
-+    <a href="contact.html">CONTACT</a>
-   </div>
- </nav>
- 
- <header>
-   <img src="Untitlvvv.png" alt="beyouart Logo" class="logo">
-   <div class="tagline">express yourself</div>
- </header>
- 
- <div class="container" id="productContainer"></div>
- 
- <footer>
- © 2026 beyouart · All rights reserved
- </footer>
- 
- <script>
- const fallbackPrices = {
-   "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04": "$5.00",
-   "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07": "$7.00",
-   "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08": "$5.00",
-   "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01": "$7.00",
-   "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03": "$5.00",
-   "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02": "$7.00",
-   "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06": "$5.00",
-   "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "$7.00"
- };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>beyouart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #111;
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+nav a:hover {
+  opacity: 1;
+}
+
+header {
+  text-align: center;
+  padding: 70px 20px 40px;
+}
+
+.logo {
+  width: 220px;
+  max-width: 80vw;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: logoIntro 1s ease forwards;
+}
+
+.tagline {
+  margin-top: 12px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  opacity: 0;
+  animation: fadeTagline 1.2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 20px auto 80px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #f5f5f5;
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.price {
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+button {
+  border: none;
+  background: #111;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+@keyframes logoIntro {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeTagline {
+  to { opacity: 0.7; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT ME</a>
+    <a href="contact.html">CONTACT</a>
+  </div>
+</nav>
+
+<header>
+  <img src="Untitlvvv.png" alt="beyouart Logo" class="logo">
+  <div class="tagline">express yourself</div>
+</header>
+
+<div class="container" id="productContainer"></div>
+
+<footer>
+© 2026 beyouart · All rights reserved
+</footer>
+
+<script>
+const stripePaymentLinks = [
+  "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04",
+  "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07",
+  "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08",
+  "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01",
+  "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03",
+  "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02",
+  "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06",
+  "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05"
+];
+
+const fallbackPrices = {
+  "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04": "$5.00",
+  "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07": "$7.00",
+  "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08": "$5.00",
+  "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01": "$7.00",
+  "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03": "$5.00",
+  "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02": "$7.00",
+  "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06": "$5.00",
+  "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "$7.00"
+};
+
+const fallbackNames = {
+  "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04": "Digital Print No. 1",
+  "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07": "Digital Print No. 2",
+  "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08": "Digital Print No. 3",
+  "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01": "Digital Print No. 4",
+  "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03": "Digital Print No. 5",
+  "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02": "Digital Print No. 6",
+  "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06": "Digital Print No. 7",
+  "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "Digital Print No. 8"
+};
+
+const palette = ["#f7d9c4", "#d5e8f7", "#e4d7ff", "#d8f1dd", "#ffdede", "#fff0c2", "#d7f6f5", "#f0d8e8"];
+
+function imageForLabel(label, color) {
+  const svg = `
+    <svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>
+      <rect width='800' height='800' fill='${color}' />
+      <text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' fill='#111' font-size='44' font-family='Inter, Arial, sans-serif'>${label}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+function parseStripeMeta(text) {
+  const titleMatch = text.match(/^Title:\s*(.+)$/mi);
+  const rawTitle = titleMatch ? titleMatch[1].trim() : "";
+  const priceMatch = rawTitle.match(/([$€£]\s?\d+(?:[\.,]\d{2})?)/);
+  const price = priceMatch ? priceMatch[1].replace(/\s+/g, "") : null;
+
+  let name = rawTitle;
+  name = name.replace(/\s*\|\s*Stripe\s*$/i, "");
+  name = name.replace(/\s*[-–—:]\s*[$€£]\s?\d+(?:[\.,]\d{2})?\s*$/i, "");
+  name = name.replace(/\s*[$€£]\s?\d+(?:[\.,]\d{2})?\s*$/, "").trim();
+
+  return {
+    name: name || null,
+    price: price || null
+  };
+}
+
+async function fetchStripeProductData(link) {
+  const proxyUrl = `https://r.jina.ai/http://${link.replace(/^https?:\/\//, "")}`;
+
+  try {
+    const response = await fetch(proxyUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Proxy response ${response.status}`);
+
+    const text = await response.text();
+    const parsed = parseStripeMeta(text);
+    return {
+      name: parsed.name || fallbackNames[link] || "Digital Print",
+      price: parsed.price || fallbackPrices[link] || "View on Stripe"
+    };
+  } catch (error) {
+    return {
+      name: fallbackNames[link] || "Digital Print",
+      price: fallbackPrices[link] || "View on Stripe"
+    };
+  }
+}
+
+function createCard({ name, price, link, image }) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <img src="${image}" alt="${name}">
+    <h3>${name}</h3>
+    <div class="price">${price}</div>
+    <a href="${link}" target="_blank" rel="noopener noreferrer"><button>Buy</button></a>
+  `;
+  return card;
+}
+
+async function renderProducts() {
+  const container = document.getElementById("productContainer");
+  container.innerHTML = "";
+
+  const metaList = await Promise.all(stripePaymentLinks.map(fetchStripeProductData));
+
+  metaList.forEach((meta, idx) => {
+    const link = stripePaymentLinks[idx];
+    const card = createCard({
+      name: meta.name,
+      price: meta.price,
+      link,
+      image: imageForLabel(meta.name, palette[idx % palette.length])
+    });
+    container.appendChild(card);
+  });
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
