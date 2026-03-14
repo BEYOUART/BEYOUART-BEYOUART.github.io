@@ -87,9 +87,6 @@ header {
   width: 100%;
   border-radius: 12px;
   margin-bottom: 12px;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  background: #f5f5f5;
 }
 
 .card h3 {
@@ -165,32 +162,9 @@ const fallbackPrices = {
   "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05": "$7.00"
 };
 
-const productNames = [
-  "Digital Print No. 1",
-  "Digital Print No. 2",
-  "Digital Print No. 3",
-  "Digital Print No. 4",
-  "Digital Print No. 5",
-  "Digital Print No. 6",
-  "Digital Print No. 7",
-  "Digital Print No. 8"
-];
-
-const palette = ["#f7d9c4", "#d5e8f7", "#e4d7ff", "#d8f1dd", "#ffdede", "#fff0c2", "#d7f6f5", "#f0d8e8"];
-
-function imageForLabel(label, color) {
-  const svg = `
-    <svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>
-      <rect width='800' height='800' fill='${color}' />
-      <text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' fill='#111' font-size='48' font-family='Inter, Arial, sans-serif'>${label}</text>
-    </svg>
-  `;
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-}
-
 const products = Object.entries(fallbackPrices).map(([link, price], idx) => ({
-  name: productNames[idx] || `Digital Print ${idx + 1}`,
-  image: imageForLabel(`beyouart ${idx + 1}`, palette[idx % palette.length]),
+  name: `Product ${idx + 1}`,
+  image: "https://via.placeholder.com/400x400?text=beyouart",
   price,
   link
 }));
