@@ -11,3 +11,7 @@ python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
+
+## Stripe product names and prices
+
+The homepage tries to refresh product names and prices from Stripe Payment Links at runtime using a read-only proxy endpoint (`r.jina.ai`) and falls back to local values if that fetch is unavailable.

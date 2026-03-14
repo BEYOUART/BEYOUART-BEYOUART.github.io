@@ -87,6 +87,9 @@ header {
   width: 100%;
   border-radius: 12px;
   margin-bottom: 12px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #f5f5f5;
 }
 
 .card h3 {
@@ -151,6 +154,17 @@ footer {
 </footer>
 
 <script>
+const stripePaymentLinks = [
+  "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04",
+  "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07",
+  "https://buy.stripe.com/3cI9AT58BbRe7X1cbu3Nm08",
+  "https://buy.stripe.com/fZueVd44x9J6b9dcbu3Nm01",
+  "https://buy.stripe.com/bJe00j0SldZm4KP1wQ3Nm03",
+  "https://buy.stripe.com/dRmeVd8kN3kIb9d8Zi3Nm02",
+  "https://buy.stripe.com/28EaEX0SlcVia590sM3Nm06",
+  "https://buy.stripe.com/aFa5kD6cFf3qa597Ve3Nm05"
+];
+
 const fallbackPrices = {
   "https://buy.stripe.com/7sY9ATgRjdZm5OTa3m3Nm04": "$5.00",
   "https://buy.stripe.com/9B6bJ144x1cAgtx1wQ3Nm07": "$7.00",
